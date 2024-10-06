@@ -23,4 +23,4 @@ To get the complete Solara Pay experience, we recommend checking out the followi
 
 For detailed documentation, setup instructions, and API references, please visit each repo or contact us.
 
-Happy coding!
+Thank you Judges!
