@@ -19,7 +19,6 @@ To get the complete Solara Pay experience, we recommend checking out the followi
 - **Automated Payroll**: Once a business schedules payroll, our system automatically deducts funds from the company's on-site wallet and disburses salaries to employees' Solana wallets based on the set schedule.
 - **Cross-Border Support**: Pay employees anywhere in the world without worrying about geographical limitations.
 
----
 
 ## Cloning this Repo
   ```bash
@@ -29,6 +28,8 @@ To get the complete Solara Pay experience, we recommend checking out the followi
    npm install
    npm run build
    php artisan serve
+
+ ---
 For a more detailed documentation, setup instructions, and API references, please visit each repo or contact us.
 
 Thank you Judges!
