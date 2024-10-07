@@ -21,6 +21,14 @@ To get the complete Solara Pay experience, we recommend checking out the followi
 
 ---
 
-For detailed documentation, setup instructions, and API references, please visit each repo or contact us.
+## Cloning this Repo
+  ```bash
+   git clone https://github.com/Solara-Pay/api-backend.git
+   cd api-backend
+   composer install
+   npm install
+   npm run build
+   php artisan serve
+For a more detailed documentation, setup instructions, and API references, please visit each repo or contact us.
 
 Thank you Judges!

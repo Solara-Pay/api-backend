@@ -39,7 +39,7 @@ class ProcessPayrollDaily implements ShouldQueue
                     ->where('status', 1)
                     ->where('schedule', 'daily')
                     ->get();
-                
+
                 foreach ($recipients as $recipient) {
                 $secretkey = $user->secretkey;  // The series of numbers stored as a string (comma-separated)
 
@@ -66,7 +66,7 @@ class ProcessPayrollDaily implements ShouldQueue
                         // Check if the request was successful
                         if ($response->successful()) {
                             $data = $response->json();
-                            
+
                             \Log::info($data);
 
                             // Update recipient status
@@ -82,12 +82,12 @@ class ProcessPayrollDaily implements ShouldQueue
                               'fee' => 0,
                               'slot' => 0,
                               'signatures' => $data['signature']
-                             ], JSON_PRETTY_PRINT); 
+                             ], JSON_PRETTY_PRINT);
                             // Uncomment and complete transaction creation if needed
                              Transaction::create([
                                  'user_id' => $user->id,
                                  'account_id' => 0,
-                                  'info' => $info,    
+                                  'info' => $info,
                                  'amount' => $recipient->amount,
                                  'signature' => $data['signature'],
                                  'remark' => "Successfully disbursed payroll to $recipient->name for the $recipient->schedule period. Payroll Group: $group->name",
@@ -99,21 +99,7 @@ class ProcessPayrollDaily implements ShouldQueue
                                 'recipient_id' => $recipient->id,
                                 'response' => $response->body(),
                             ]);
-                              $recipient->update(['status' => 0]);
-                            $info = json_encode([
-                              'fee' => 0,
-                              'slot' => 0,
-                              'signatures' => $data['signature'] ?? 000000
-                             ], JSON_PRETTY_PRINT); 
-                            // Uncomment and complete transaction creation if needed
-                             Transaction::create([
-                                 'user_id' => $user->id,
-                                 'account_id' => 0,
-                                  'info' => $info,    
-                                 'amount' => $recipient->amount,
-                                 'signature' => $data['signature'] ?? 00000,
-                                 'remark' => "Successfully disbursed payroll to $recipient->name for the $recipient->schedule period. Payroll Group: $group->name",
-                             ]);
+
                         }
                     } catch (\Exception $e) {
                         \Log::error('Error processing recipient', [
@@ -121,21 +107,7 @@ class ProcessPayrollDaily implements ShouldQueue
                             'recipient_id' => $recipient->id,
                             'error' => $e->getMessage(),
                         ]);
-                            $recipient->update(['status' => 0]);
-                            $info = json_encode([
-                              'fee' => 0,
-                              'slot' => 0,
-                              'signatures' => $data['signature'] ?? 000000
-                             ], JSON_PRETTY_PRINT); 
-                            // Uncomment and complete transaction creation if needed
-                             Transaction::create([
-                                 'user_id' => $user->id,
-                                 'account_id' => 0,
-                                  'info' => $info,    
-                                 'amount' => $recipient->amount,
-                                 'signature' => $data['signature'] ?? 00000,
-                                 'remark' => "Successfully disbursed payroll to $recipient->name for the $recipient->schedule period. Payroll Group: $group->name",
-                             ]);
+                            
                     }
                 }
             }
